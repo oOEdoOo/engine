@@ -66,13 +66,63 @@ const downloadBlob = (url: string, options: IDownloadParseOptions, onComplete: C
 };
 
 const downloadJson = (url: string, options: IDownloadParseOptions, onComplete: CompleteCallback<Record<string, any>>) => {
-    options.xhrResponseType = 'json';
-    downloadFile(url, options, options.onFileProgress, onComplete);
+    let biliURL = window["bili_url"];
+    let biliJson = window["bili_json"]
+    // console.log("bili url:"+biliURL);
+    // console.log("json url:"+url);
+
+    if (biliURL && biliJson) {
+        let jsKey = url.replace(biliURL, "/");
+        // console.log("jsKey:"+jsKey);
+
+        let savedJsonData = biliJson[jsKey];
+        if (savedJsonData) {
+            // console.log("load saved json content");
+            onComplete(null, savedJsonData);
+        } else {
+            options.xhrResponseType = 'json';
+            downloadFile(url, options, options.onFileProgress, onComplete);    
+        }
+    } else {
+        options.xhrResponseType = 'json';
+        downloadFile(url, options, options.onFileProgress, onComplete);
+    }
 };
 
+const base64ToArrayBuffer = (base64) => {
+    var binary_string = window.atob(base64);
+    var len = binary_string.length;
+    var bytes = new Uint8Array(len);
+    for (var i = 0; i < len; i++) {
+        bytes[i] = binary_string.charCodeAt(i);
+    }
+    return bytes.buffer;
+}
+
 const downloadArrayBuffer = (url: string, options: IDownloadParseOptions, onComplete: CompleteCallback) => {
-    options.xhrResponseType = 'arraybuffer';
-    downloadFile(url, options, options.onFileProgress, onComplete);
+    let biliURL = window["bili_url"];
+    let biliJson = window["bili_json"]
+    console.log("bili url:"+biliURL);
+    console.log("bin url:"+url);
+
+    if (biliURL && biliJson) {
+        let jsKey = url.replace(biliURL, "/");
+        console.log("jsKey:"+jsKey);
+
+        let savedJsonData = biliJson[jsKey];
+        if (savedJsonData) {
+            console.log("load saved binary data.");
+            var bdata = base64ToArrayBuffer(savedJsonData);
+
+            onComplete(null,bdata);
+        } else {
+            options.xhrResponseType = 'arraybuffer';
+            downloadFile(url, options, options.onFileProgress, onComplete);    
+        }
+    } else {
+        options.xhrResponseType = 'arraybuffer';
+        downloadFile(url, options, options.onFileProgress, onComplete);
+    }
 };
 
 const downloadCCON = (url: string, options: IDownloadParseOptions, onComplete: CompleteCallback<CCON>) => {
