@@ -102,16 +102,16 @@ const base64ToArrayBuffer = (base64) => {
 const downloadArrayBuffer = (url: string, options: IDownloadParseOptions, onComplete: CompleteCallback) => {
     let biliURL = window["bili_url"];
     let biliJson = window["bili_json"]
-    console.log("bili url:"+biliURL);
-    console.log("bin url:"+url);
+    // console.log("bili url:"+biliURL);
+    // console.log("bin url:"+url);
 
     if (biliURL && biliJson) {
         let jsKey = url.replace(biliURL, "/");
-        console.log("jsKey:"+jsKey);
+        // console.log("jsKey:"+jsKey);
 
         let savedJsonData = biliJson[jsKey];
         if (savedJsonData) {
-            console.log("load saved binary data.");
+            // console.log("load saved binary data.");
             var bdata = base64ToArrayBuffer(savedJsonData);
 
             onComplete(null,bdata);
