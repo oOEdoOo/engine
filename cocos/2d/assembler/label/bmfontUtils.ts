@@ -236,8 +236,8 @@ export const bmfontUtils = {
                 letterDef = shareLabelInfo.fontAtlas!.getLetterDefinitionForChar(character, shareLabelInfo);
                 if (!letterDef) {
                     this._recordPlaceholderInfo(letterIndex, character);
-                    console.log(`Can't find letter definition in texture atlas ${
-                     _fntConfig!.atlasName} for letter:${character}`);
+                    // console.log(`Can't find letter definition in texture atlas ${
+                    //  _fntConfig!.atlasName} for letter:${character}`);
                     continue;
                 }
 

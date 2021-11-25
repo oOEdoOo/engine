@@ -54,18 +54,30 @@ interface IDownloadRequest {
 
 const REGEX = /^(?:\w+:\/\/|\.+\/).+/;
 
+const __download_debug = false;
+
 const downloadImage = (url: string, options: IDownloadParseOptions, onComplete: CompleteCallback) => {
+    if (__download_debug) {
+        console.debug("download img:"+url);
+    }
+    
     // if createImageBitmap is valid, we can transform blob to ImageBitmap. Otherwise, just use HTMLImageElement to load
     const func = sys.capabilities.imageBitmap && legacyCC.assetManager.allowImageBitmap ? downloadBlob : downloadDomImage;
     func(url, options, onComplete);
 };
 
 const downloadBlob = (url: string, options: IDownloadParseOptions, onComplete: CompleteCallback) => {
+    if (__download_debug) {
+        console.debug("download blob:"+url);
+    }
     options.xhrResponseType = 'blob';
     downloadFile(url, options, options.onFileProgress, onComplete);
 };
 
 const downloadJson = (url: string, options: IDownloadParseOptions, onComplete: CompleteCallback<Record<string, any>>) => {
+    if (__download_debug) {
+        console.debug("download json:"+url);
+    }
     let biliURL = window["bili_url"];
     let biliJson = window["bili_json"]
     // console.log("bili url:"+biliURL);
@@ -100,6 +112,9 @@ const base64ToArrayBuffer = (base64) => {
 }
 
 const downloadArrayBuffer = (url: string, options: IDownloadParseOptions, onComplete: CompleteCallback) => {
+    if (__download_debug) {
+        console.debug("download ab:"+url);
+    }
     let biliURL = window["bili_url"];
     let biliJson = window["bili_json"]
     // console.log("bili url:"+biliURL);
@@ -126,6 +141,9 @@ const downloadArrayBuffer = (url: string, options: IDownloadParseOptions, onComp
 };
 
 const downloadCCON = (url: string, options: IDownloadParseOptions, onComplete: CompleteCallback<CCON>) => {
+    if (__download_debug) {
+        console.debug("download ccon:"+url);
+    }
     downloadJson(url, options, (err, json) => {
         if (err) {
             onComplete(err);
@@ -151,6 +169,9 @@ const downloadCCON = (url: string, options: IDownloadParseOptions, onComplete: C
 };
 
 const downloadCCONB = (url: string, options: IDownloadParseOptions, onComplete: CompleteCallback<CCON>) => {
+    if (__download_debug) {
+        console.debug("download cconb:"+url);
+    }
     downloadArrayBuffer(url, options, (err, arrayBuffer: ArrayBuffer) => {
         if (err) {
             onComplete(err);
@@ -166,11 +187,17 @@ const downloadCCONB = (url: string, options: IDownloadParseOptions, onComplete: 
 };
 
 const downloadText = (url: string, options: IDownloadParseOptions, onComplete: CompleteCallback) => {
+    if (__download_debug) {
+        console.debug("download text:"+url);
+    }
     options.xhrResponseType = 'text';
     downloadFile(url, options, options.onFileProgress, onComplete);
 };
 
 const downloadBundle = (nameOrUrl: string, options: IBundleOptions, onComplete: CompleteCallback) => {
+    if (__download_debug) {
+        console.debug("download bundle:"+nameOrUrl);
+    }
     const bundleName = basename(nameOrUrl);
     let url = nameOrUrl;
     if (!REGEX.test(url)) {
