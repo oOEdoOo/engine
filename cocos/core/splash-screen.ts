@@ -108,7 +108,7 @@ export class SplashScreen {
             setting.totalTime = this.settings.totalTime != null ? this.settings.totalTime : 3000;
             setting.base64src = this.settings.base64src || '';
             setting.effect = this.settings.effect || 'FADE-INOUT';
-            setting.clearColor = this.settings.clearColor || new Color(0.88, 0.88, 0.88, 1);
+            setting.clearColor = new Color(0.88, 0.88, 0.88, 1); // this.settings.clearColor || new Color(0.88, 0.88, 0.88, 1);
             setting.displayRatio = this.settings.displayRatio != null ? this.settings.displayRatio : 0.4;
             setting.displayWatermark = this.settings.displayWatermark != null ? this.settings.displayWatermark : true;
         } else {
