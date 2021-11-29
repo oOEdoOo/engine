@@ -800,7 +800,8 @@ export class Game extends EventTarget {
         const config = this.config;
         const director = legacyCC.director;
 
-        debug.setDisplayStats(!!config.showFPS);
+        // debug.setDisplayStats(!!config.showFPS);
+        debug.setDisplayStats(false)
         director.startAnimation();
         this.resume();
     }
