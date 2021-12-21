@@ -117,7 +117,11 @@ export class Texture2D extends SimpleTexture {
      * 也就是说，通过 `this.image` 设置 0 级 Mipmap 时将隐式地清除之前的所有 Mipmap。
      */
     get image () {
-        return this._mipmaps.length === 0 ? null : this._mipmaps[0];
+        if (this._mipmaps) {
+            return this._mipmaps.length === 0 ? null : this._mipmaps[0];
+        } else {
+            return null;
+        }
     }
 
     set image (value) {
