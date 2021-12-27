@@ -666,7 +666,8 @@ export class SpriteFrame extends Asset {
      * @zh 获取渲染贴图的 GFX 资源
      */
     public getGFXTexture () {
-        return this._texture.getGFXTexture();
+        if (this._texture)
+            return this._texture.getGFXTexture();
     }
 
     /**
@@ -674,7 +675,8 @@ export class SpriteFrame extends Asset {
      * @zh 贴图资源的采样器
      */
     public getGFXSampler () {
-        return this._texture.getGFXSampler();
+        if (this._texture)
+            return this._texture.getGFXSampler();
     }
 
     /**
@@ -682,7 +684,8 @@ export class SpriteFrame extends Asset {
      * @zh 贴图资源的哈希值
      */
     public getHash () {
-        return this._texture.getHash();
+        if (this._texture)
+            return this._texture.getHash();
     }
 
     /**
@@ -690,7 +693,8 @@ export class SpriteFrame extends Asset {
      * @zh 贴图资源的采样器哈希值
      */
     public getSamplerInfo () {
-        return this._texture.getSamplerInfo();
+        if (this._texture)
+            return this._texture.getSamplerInfo();
     }
 
     /**
